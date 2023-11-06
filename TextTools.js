@@ -194,9 +194,7 @@ Game_Message.prototype.addText = function(text) {
     if (ConfigManager.familyModeOption)
     {
         function iterate(item) {
-            console.log(item);
             filteredDialogue = filteredDialogue.replace(new RegExp("\\b"+item+"\\b", "ig"), textTools.bleepText);
-            console.log(filteredDialogue);
         }
         commonSwears.forEach(iterate);
     }
