@@ -11,7 +11,7 @@ alternatingCase(string)
 
 Alternatively, you can use a script call. For example:
 
-$gameVariables.setValue(1, alternatingCase("good morning");
+$gameVariables.setValue(1, alternatingCase("good morning"));
      
 String: the text string to convert.
  
@@ -23,7 +23,7 @@ actorNameAlternatingCase(actorID)
 
 Alternatively, you can use a script call. Using actor one as an example:
 
-$gameVariables.setValue(1, actorNameAlternatingCase(1);
+$gameVariables.setValue(1, actorNameAlternatingCase(1));
      
 String: the text string to convert.
  
@@ -35,7 +35,7 @@ upperCase(string)
 
 Alternatively, you can use a script call. For example:
 
-$gameVariables.setValue(1, upperCase("good morning");
+$gameVariables.setValue(1, upperCase("good morning"));
      
 String: the text string to convert.
 
@@ -46,7 +46,7 @@ actorNameUpperCase(actorID)
 
 Alternatively, you can use a script call. Using actor one as an example:
 
-$gameVariables.setValue(1, actorNameUpperCase(1);
+$gameVariables.setValue(1, actorNameUpperCase(1));
      
 String: the text string to convert.
  
