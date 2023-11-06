@@ -25,7 +25,7 @@ Alternatively, you can use a script call. Using actor one as an example:
 
 $gameVariables.setValue(1, actorNameAlternatingCase(1));
      
-String: the text string to convert.
+actorID: the targeted actor's ID number.
  
 ### Upper Case
 
@@ -48,8 +48,8 @@ Alternatively, you can use a script call. Using actor one as an example:
 
 $gameVariables.setValue(1, actorNameUpperCase(1));
      
-String: the text string to convert.
- 
+actorID: the targeted actor's ID number.
+
 ## Configuration Settings
 
 ### Use Family Mode
