@@ -89,7 +89,11 @@ Imported.ZeroBreakTextTools = true;
 * Allows for the creation of a family mode for your game, which detects and
 * hides any strong language in game dialogue. Supports English, German, Italian,
 * Spanish, Japanese, Chinese and Korean languages. Turn on and off in the game
-* settings.
+* settings. Note that the functionality is not dependent on the case of text
+* used - it can be upper case, lower case or a combination thereof and still
+* detect the words to be filtered out. The most common forms of strong language
+* (and a few culturally sensitive ones) are detected and filtered when using
+* this functionality.
 *
 * Replacement Text
 * When using family mode, it determines what text is used to replace strong
