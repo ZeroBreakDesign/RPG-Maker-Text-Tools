@@ -85,6 +85,15 @@ Imported.ZeroBreakTextTools = true;
 * When using family mode, this sets the name of the option in the preferences
 * screen.
 *
+* Allow Moderate Mode
+* When using family mode, this allows the developer to set whether more moderate
+* language should be allowed. Turn this off to block all strong language or turn
+* it on and let the player decide.
+*
+* Moderate Mode Option Text
+* When using family mode, this sets the name of the moderate mode option in the
+* preferences screen.
+*
 * Replacement Text
 * When using family mode, it determines what text is used to replace strong
 * language in the game's dialogue. Default option is a simple BLEEP marker.
