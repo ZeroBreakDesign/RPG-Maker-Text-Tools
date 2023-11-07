@@ -58,6 +58,9 @@ Allows for the creation of a family mode for your game, which detects and hides 
 ### Family Mode Option Text
 When using family mode, this sets the name of the option in the preferences screen.
 
+### Filter List File Name
+When using family mode, sets the name of the filter list. Make sure it's saved within the data directory as a comma-separated value (CSV) file.
+
 ### Replacement Text
 When using family mode, it determines what text is used to replace strong language in the game's dialogue. Default option is a simple BLEEP marker.
 
