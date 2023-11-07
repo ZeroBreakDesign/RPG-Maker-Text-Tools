@@ -85,14 +85,9 @@ Imported.ZeroBreakTextTools = true;
 * When using family mode, this sets the name of the option in the preferences
 * screen.
 *
-* Allow Moderate Mode
-* When using family mode, this allows the developer to set whether more moderate
-* language can be allowed. Turn this off to block all strong language or turn
-* it on and let the player decide.
-*
-* Moderate Mode Option Text
-* When using family mode, this sets the name of the moderate mode option in the
-* preferences screen.
+* Filter List File Name
+* When using family mode, sets the name of the filter list. Make sure it's saved
+* within the data directory as a comma-separated value (CSV) file.
 *
 * Replacement Text
 * When using family mode, it determines what text is used to replace strong
@@ -109,19 +104,14 @@ Imported.ZeroBreakTextTools = true;
 * @desc Determines if family mode is supported in the game.
 * @type boolean
 * @default true
-* @param Allow Moderate Mode
-* @desc When using family mode, determines if moderate-strength language is allowed.
-* @type boolean
-* @default true
 * @param Family Mode Option Text
 * @desc When using family mode, sets the name of the main option.
 * @type text
 * @default Family Mode
-* @param Moderate Mode Option Text
-* @desc When using family mode, sets the name of the filtering level option.
+* @param Filter List File Name
+* @desc When using family mode, sets the name of the filter list (make sure it's saved in CSV format).
 * @type text
-* @default Moderate Mode
-* @desc When using family mode, specifies any additional words you wish to hide from the player.
+* @default blocklist
 * @param Replacement Text
 * @desc When using family mode, sets the replacement text.
 * @type text
@@ -131,17 +121,13 @@ Imported.ZeroBreakTextTools = true;
 var textTools = textTools || {};
 var parameters = PluginManager.parameters('TextTools');
 textTools.familyModeOption = String(parameters['Use Family Mode']);
-textTools.moderateModeOption = String(parameters['Allow Moderate Mode']);
 textTools.familyModeName = String(parameters['Family Mode Option Text']);
-textTools.moderateModeName = String(parameters['Moderate Mode Option Text']);
-textTools.customWordList = JSON.parse(parameters['Custom Block List']);
+textTools.blockListFile = String(parameters['Filter List File Name']);
 textTools.bleepText = String(parameters['Replacement Text']);
 textTools.familyModeActivated = false;
-textTools.moderateModeActivated = false;
 ConfigManager.familyModeOption = false;
-ConfigManager.moderateModeOption = false;
-ConfigManager.extensiveModeOption = false;
 var filteredDialogue;
+var blockList;
 
 (function($) {
 	
@@ -149,7 +135,6 @@ var filteredDialogue;
 	$.makeData = function() {
         var config = saveFamilyModeSettings.call(this);
         config.familyMode = this.familyModeOption;
-        config.moderateMode = this.moderateModeOption;
         return config;
 	}
 
@@ -157,28 +142,34 @@ var filteredDialogue;
 	$.applyData = function(config) {
             readFamilyModeSettings.call(this, config);
             this.familyModeOption = config.familyMode;
-            if (!textTools.moderateModeOption) this.moderateModeOption = false;
-	    else this.moderateModeOption = config.moderateMode;
 	}
 
 })(ConfigManager);
 
 // Family Mode
 
-        function iterate(item) {
-            console.log(item);
-            filteredDialogue = filteredDialogue.replace(new RegExp("\\b"+item+"\\b", "ig"), textTools.bleepText);
-            console.log(filteredDialogue);
-        };
+function iterate(item) {
+    console.log(item);
+    filteredDialogue = filteredDialogue.replace(new RegExp("\\b"+item+"\\b", "ig"), textTools.bleepText);
+    console.log(filteredDialogue);
+}
+
+function processData(data) {
+    console.log(data);
+    blockList = data.split(",");
+}
 
 Game_Message.prototype.addText = function(text) {
     filteredDialogue = text;
-    var moderateSwears = ["bastard", "damn", "shit", "bitch", "asshole", "goddammit", "ass", "dammit", "jackass", "goddamnit", "damnit", "goddamn", "bastardo", "maldito", "mierda", "perra", "imbécil", "maldita sea", "culo", "burro", "verdammt", "Scheiße", "Schlampe", "Arschloch", "gottverdammt", "Arsch", "Trottel", "dannazione", "merda", "coglione", "畜生", "クソ", "ビッチ", "ケツの穴", "ゴッド畜生", "ケツ", "畜生", "ジャッカス", "ゴッド畜生", "젠장", "썅년", "개자식", "빌어먹을", "엉덩이", "빌어먹을", "该死", "狗屎", "婊子", "混蛋", "该死", "屁股", "蠢货", "该死"];
-    var extremeSwears = ["cunt", "fucking", "fuck", "motherfucker", "fucker", "nigger", "nigga", "niggah", "whore", "retard", "negro", "ho", "coño", "follar", "joder", "hijo", "cabrón", "negroh", "puta", "retrasado", "Fotze", "ficken", "Ficker", "Hure", "Zurückgebliebener", "Neger", "fica", "fottuta", "cazzo", "figlio", "stronzo", "puttana", "ritardato", "マンコ", "ファッキング", "ファック", "マザーファッカー", "ファッカー", "ニガー", "ニガー", "売春婦", "知恵遅れ", "黒人", "ホー", "개년", "씨발", "씨발", "개새끼", "씨발놈", "깜둥이", "창녀", "흑인", "호모", "屄", "他妈的", "操", "狗娘养的", "笨蛋", "黑鬼", "妓女", "弱智", "黑人", "骚货"];
+    $.ajax({
+        type: "GET",
+        url: "data/" + textTools.blockListFile + ".csv",
+        dataType: "text",
+        success: function(data) { processData(data); }
+     });
     if (ConfigManager.familyModeOption)
     {
-        if (!ConfigManager.moderateModeOption) commonSwears.forEach(iterate);
-    	extremeSwears.forEach(iterate);
+    	blockList.forEach(iterate);
     }
     // The following line is for compatibility with Yanfly Message Core on MV
     if (Imported.YEP_MessageCore == true && $gameSystem.wordWrap()) filteredDialogue = '<WordWrap>' + filteredDialogue;
@@ -188,7 +179,7 @@ Game_Message.prototype.addText = function(text) {
 // Alternating Case
 
 var alternatingCase = function (string) {
-  var chars = s.toLowerCase().split("");
+  var chars = string.toLowerCase().split("");
   for (var i = 0; i < chars.length; i += 2) {
     chars[i] = chars[i].toUpperCase();
   }
@@ -213,14 +204,12 @@ var actorNameUpperCase = function (actorID) {
 
   textTools.addToOptions = Window_Options.prototype.addGeneralOptions;
   Window_Options.prototype.addGeneralOptions = function() {
-    console.log('adding options');
     textTools.addToOptions.call(this);
     if (!Imported.YEP_OptionsCore) this.addFamilyModeCommands();
   };
  
   Window_Options.prototype.addFamilyModeCommands = function() {
     if (textTools.familyModeOption) this.addCommand(textTools.familyModeName, 'familyModeOption', true);
-    if (textTools.familyModeOption && ConfigManager.familyModeOption && textTools.moderateModeOption) this.addCommand(textTools.moderateModeName, 'moderateModeOption', true);
   };
  
   textTools.updateOptions = Window_Options.prototype.update;
