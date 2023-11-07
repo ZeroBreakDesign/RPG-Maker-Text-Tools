@@ -21,7 +21,7 @@ Imported.ZeroBreakTextTools = true;
 * Special Note Regarding the Plugin Functions
 * ------------------------------------------------------------------------------
 * The plugin uses an addText() function for the purpose of the family mode's
-* functionality that is described in the documentation. This is for
+* functionality that is described in the documentation. This is intended for
 * compatibility with Yanfly Message Core and therefore it has been assumed that
 * the functionality will only work with that plugin. However, I have tested the
 * plugin with and without this and have not reported any problems from my own
