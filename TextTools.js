@@ -10,24 +10,13 @@ Imported.ZeroBreakTextTools = true;
 * @author BreakerZero
 * @target MZ
 * @help
-* Text Tools by BreakerZero V1.1.1
+* Text Tools by BreakerZero V1.1.2
 * Free to use under the terms of the MIT license.
 * ------------------------------------------------------------------------------
 * This plugin is designed to simplify the use of JavaScript text functions and
 * serve other purposes which may relate to character dialogue or other in-game
 * text displays. It revolves around alternating case, upper case and functions
 * related to categories of language.
-* ------------------------------------------------------------------------------
-* Special Note Regarding the Plugin Functions
-* ------------------------------------------------------------------------------
-* The plugin uses an addText() function for the purpose of the family mode's
-* functionality that is described in the documentation. This is intended for
-* compatibility with Yanfly Message Core and therefore it has been assumed that
-* the functionality will only work with that plugin. However, I have tested the
-* plugin with and without this and have not reported any problems from my own
-* personal experiences. That being said, you are free to use Yanfly Message Core
-* alongside this plugin to ensure proper functionality if you're not entirely
-* sure of yourself with this matter.
 * ------------------------------------------------------------------------------
 * Script Calls
 * ------------------------------------------------------------------------------
@@ -104,12 +93,6 @@ Imported.ZeroBreakTextTools = true;
 * When using family mode, it determines what text is used to replace strong
 * language in the game's dialogue. Default option is a simple BLEEP marker.
 *
-* ------------------------------------------------------------------------------
-* Release history:
-* ------------------------------------------------------------------------------
-* v1.0.0: Initial RTM
-* v1.0.1: Added moderate mode option to set filtering strength in family mode
-*
 *
 * @param Use Family Mode
 * @desc Determines if family mode is supported in the game.
@@ -160,10 +143,13 @@ var blockList = [];
 // Family Mode
 
 function iterate(item) {
+    console.log(item);
     filteredDialogue = filteredDialogue.replace(new RegExp("\\b"+item+"\\b", "ig"), textTools.bleepText);
+    console.log(filteredDialogue);
 }
 
 function processData(data) {
+    console.log(data);
     blockList = data.split(",");
 }
 
@@ -182,6 +168,38 @@ Game_Message.prototype.addText = function(text) {
     // The following line is for compatibility with Yanfly Message Core on MV
     if (Imported.YEP_MessageCore == true && $gameSystem.wordWrap()) filteredDialogue = '<WordWrap>' + filteredDialogue;
     this.add(filteredDialogue);
+};
+
+Game_Interpreter.prototype.command101 = function() {
+    if (!$gameMessage.isBusy()) {
+      $gameMessage.setFaceImage(this._params[0], this._params[1]);
+      $gameMessage.setBackground(this._params[2]);
+      $gameMessage.setPositionType(this._params[3]);
+      while (this.isContinueMessageString()) {
+        this._index++;
+        if (this._list[this._index].code === 401) {
+          $gameMessage.addText(this.currentCommand().parameters[0]);
+        }
+        if ($gameMessage._texts.length >= $gameSystem.messageRows()) break;
+      }
+      switch (this.nextEventCode()) {
+      case 102:
+        this._index++;
+        this.setupChoices(this.currentCommand().parameters);
+        break;
+      case 103:
+        this._index++;
+        this.setupNumInput(this.currentCommand().parameters);
+        break;
+      case 104:
+        this._index++;
+        this.setupItemChoice(this.currentCommand().parameters);
+        break;
+      }
+      this._index++;
+      this.setWaitMode('message');
+    }
+    return false;
 };
 
 // Alternating Case
