@@ -63,6 +63,3 @@ When using family mode, sets the name of the filter list. Make sure it's saved w
 
 ### Replacement Text
 When using family mode, it determines what text is used to replace strong language in the game's dialogue. Default option is a simple BLEEP marker.
-
-## Release history:
-v1.0.0: Initial RTM
