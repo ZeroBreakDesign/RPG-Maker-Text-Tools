@@ -10,7 +10,7 @@ Imported.ZeroBreakTextTools = true;
 * @author BreakerZero
 * @target MZ
 * @help
-* Text Tools by BreakerZero V1.1.2
+* Text Tools by BreakerZero V1.1.3
 * Free to use under the terms of the MIT license.
 * ------------------------------------------------------------------------------
 * This plugin is designed to simplify the use of JavaScript text functions and
