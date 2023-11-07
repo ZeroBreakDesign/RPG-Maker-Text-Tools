@@ -87,7 +87,7 @@ Imported.ZeroBreakTextTools = true;
 *
 * Allow Moderate Mode
 * When using family mode, this allows the developer to set whether more moderate
-* language should be allowed. Turn this off to block all strong language or turn
+* language can be allowed. Turn this off to block all strong language or turn
 * it on and let the player decide.
 *
 * Moderate Mode Option Text
