@@ -180,7 +180,7 @@ Game_Interpreter.prototype.command101 = function() {
         if (this._list[this._index].code === 401) {
           $gameMessage.addText(this.currentCommand().parameters[0]);
         }
-        if ($gameMessage._texts.length >= $gameSystem.messageRows()) break;
+        if (Imported.YEP_MessageCore == true && $gameMessage._texts.length >= $gameSystem.messageRows()) break;
       }
       switch (this.nextEventCode()) {
       case 102:
