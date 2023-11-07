@@ -202,6 +202,14 @@ Game_Interpreter.prototype.command101 = function() {
     return false;
 };
 
+Game_Interpreter.prototype.isContinueMessageString = function() {
+    if (this.nextEventCode() === 101 && $gameSystem.messageRows() > 4) {
+      return true;
+    } else {
+      return this.nextEventCode() === 401;
+    }
+};
+
 // Alternating Case
 
 var alternatingCase = function (string) {
