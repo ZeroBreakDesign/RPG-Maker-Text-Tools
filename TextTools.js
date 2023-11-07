@@ -149,13 +149,10 @@ var blockList;
 // Family Mode
 
 function iterate(item) {
-    console.log(item);
     filteredDialogue = filteredDialogue.replace(new RegExp("\\b"+item+"\\b", "ig"), textTools.bleepText);
-    console.log(filteredDialogue);
 }
 
 function processData(data) {
-    console.log(data);
     blockList = data.split(",");
 }
 
