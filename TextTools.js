@@ -127,7 +127,7 @@ textTools.bleepText = String(parameters['Replacement Text']);
 textTools.familyModeActivated = false;
 ConfigManager.familyModeOption = false;
 var filteredDialogue;
-var blockList;
+var blockList = [];
 
 (function($) {
 	
