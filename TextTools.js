@@ -18,6 +18,17 @@ Imported.ZeroBreakTextTools = true;
 * text displays. It revolves around alternating case, upper case and functions
 * related to categories of language.
 * ------------------------------------------------------------------------------
+* Special Note Regarding the Plugin Functions
+* ------------------------------------------------------------------------------
+* The plugin uses an addText() function for the purpose of the family mode's
+* functionality that is described in the documentation. This is for
+* compatibility with Yanfly Message Core and therefore it has been assumed that
+* the functionality will only work with that plugin. However, I have tested the
+* plugin with and without this and have not reported any problems from my own
+* personal experiences. That being said, you are free to use Yanfly Message Core
+* alongside this plugin to ensure proper functionality if you're not entirely
+* sure of yourself with this matter.
+* ------------------------------------------------------------------------------
 * Script Calls
 * ------------------------------------------------------------------------------
 * Alternating Case
