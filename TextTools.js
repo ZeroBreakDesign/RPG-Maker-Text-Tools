@@ -95,6 +95,7 @@ Imported.ZeroBreakTextTools = true;
 * v1.0.0: Initial RTM
 * v1.0.1: Added moderate mode option to set filtering strength in family mode
 *
+*
 * @param Use Family Mode
 * @desc Determines if family mode is supported in the game.
 * @type boolean
@@ -140,7 +141,6 @@ var filteredDialogue;
         var config = saveFamilyModeSettings.call(this);
         config.familyMode = this.familyModeOption;
         config.moderateMode = this.moderateModeOption;
-        config.extensiveMode = this.extensiveModeOption;
         return config;
 	}
 
@@ -148,8 +148,8 @@ var filteredDialogue;
 	$.applyData = function(config) {
             readFamilyModeSettings.call(this, config);
             this.familyModeOption = config.familyMode;
-            this.moderateModeOption = config.moderateMode;
-            this.extensiveModeOption = config.extensiveMode;
+            if (!textTools.moderateModeOption) this.moderateModeOption = false;
+	    else this.moderateModeOption = config.moderateMode;
 	}
 
 })(ConfigManager);
@@ -168,9 +168,6 @@ Game_Message.prototype.addText = function(text) {
     var extremeSwears = ["cunt", "fucking", "fuck", "motherfucker", "fucker", "nigger", "nigga", "niggah", "whore", "retard", "negro", "ho", "coño", "follar", "joder", "hijo", "cabrón", "negroh", "puta", "retrasado", "Fotze", "ficken", "Ficker", "Hure", "Zurückgebliebener", "Neger", "fica", "fottuta", "cazzo", "figlio", "stronzo", "puttana", "ritardato", "マンコ", "ファッキング", "ファック", "マザーファッカー", "ファッカー", "ニガー", "ニガー", "売春婦", "知恵遅れ", "黒人", "ホー", "개년", "씨발", "씨발", "개새끼", "씨발놈", "깜둥이", "창녀", "흑인", "호모", "屄", "他妈的", "操", "狗娘养的", "笨蛋", "黑鬼", "妓女", "弱智", "黑人", "骚货"];
     if (ConfigManager.familyModeOption)
     {
-        try {
-            if (ConfigManager.extensiveModeOption) textTools.customWordList.forEach(iterate);
-        } catch (ex) {}
         if (!ConfigManager.moderateModeOption) commonSwears.forEach(iterate);
     	extremeSwears.forEach(iterate);
     }
