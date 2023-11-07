@@ -53,13 +53,13 @@ actorID: the targeted actor's ID number.
 ## Configuration Settings
 
 ### Use Family Mode
-Allows for the creation of a family mode for your game, which detects and hides any strong language in game dialogue. Supports English, German, Italian, Spanish, Japanese, Chinese and Korean languages. Turn on and off in the game settings. Note that the functionality is not dependent on the case of text used - it can be upper case, lower case or a combination thereof and still detect the words to be filtered out. The most common forms of strong language (and a few culturally sensitive ones) are detected and filtered when using this functionality.
+Allows for the creation of a family mode for your game, which detects and hides any strong language in game dialogue. Note that the functionality is not dependent on the case of text used - it can be upper case, lower case or a combination thereof and still detect the words to be filtered out.  
 
 ### Family Mode Option Text
 When using family mode, this sets the name of the option in the preferences screen.
 
 ### Filter List File Name
-When using family mode, sets the name of the filter list. Make sure it's saved within the data directory as a comma-separated value (CSV) file.
+When using family mode, sets the name of the filter list. Make sure it's saved within the data directory as a comma-separated value (CSV) file. A sample file supporting English, German, Italian, Spanish, Japanese, Korean and Simplified Chinese is included in this repository as blocklist.csv (which is also the default file name).
 
 ### Replacement Text
 When using family mode, it determines what text is used to replace strong language in the game's dialogue. Default option is a simple BLEEP marker.
