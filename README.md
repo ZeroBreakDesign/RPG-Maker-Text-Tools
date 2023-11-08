@@ -62,8 +62,8 @@ Allows for the creation of a family mode for your game, which detects and hides 
 ### Family Mode Option Text
 When using family mode, this sets the name of the option in the preferences screen.
 
-### Filter List File Name
-When using family mode, sets the name of the filter list. Make sure it's saved within the data directory as a comma-separated value (CSV) file. A sample file supporting English, German, Italian, Spanish, Japanese, Korean and Simplified Chinese is included in this repository as blocklist.csv (which is also the default file name).
+### Block List File Name
+When using family mode, sets the name of the block list. Make sure it's saved within the data directory as a comma-separated value (CSV) file. A sample file supporting English, German, Italian, Spanish, Japanese, Korean and Simplified Chinese is included in this repository as blocklist.csv (which is also the default file name).
 
 ### Replacement Text
 When using family mode, it determines what text is used to replace strong language in the game's dialogue. Default option is a simple BLEEP marker.
