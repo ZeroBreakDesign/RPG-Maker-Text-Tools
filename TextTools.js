@@ -10,7 +10,7 @@ Imported.ZeroBreakTextTools = true;
 * @author BreakerZero
 * @target MZ
 * @help
-* Text Tools by BreakerZero V1.1.3
+* Text Tools by BreakerZero V1.1.4
 * Free to use under the terms of the MIT license.
 * ------------------------------------------------------------------------------
 * This plugin is designed to simplify the use of JavaScript text functions and
@@ -73,21 +73,20 @@ Imported.ZeroBreakTextTools = true;
 * ------------------------------------------------------------------------------
 * Use Family Mode
 * Allows for the creation of a family mode for your game, which detects and
-* hides any strong language in game dialogue. Supports English, German, Italian,
-* Spanish, Japanese, Chinese and Korean languages. Turn on and off in the game
-* settings. Note that the functionality is not dependent on the case of text
-* used - it can be upper case, lower case or a combination thereof and still
-* detect the words to be filtered out. The most common forms of strong language
-* (and a few culturally sensitive ones) are detected and filtered when using
-* this functionality.
+* hides any strong language in game dialogue. Note that the functionality is
+* not dependent on the case of text used - it can be upper case, lower case or
+* a combination thereof and still detect the words to be filtered out.
 *
 * Family Mode Option Text
 * When using family mode, this sets the name of the option in the preferences
 * screen.
 *
-* Filter List File Name
-* When using family mode, sets the name of the filter list. Make sure it's saved
-* within the data directory as a comma-separated value (CSV) file.
+* Block List File Name
+* When using family mode, sets the name of the block list. Make sure it's
+* saved within the data directory as a comma-separated value (CSV) file. A
+* sample file supporting English, German, Italian, Spanish, Japanese, Korean
+* and Simplified Chinese is included in the GitHub repository as blocklist.csv
+* (which is also the default file name).
 *
 * Replacement Text
 * When using family mode, it determines what text is used to replace strong
@@ -102,8 +101,8 @@ Imported.ZeroBreakTextTools = true;
 * @desc When using family mode, sets the name of the main option.
 * @type text
 * @default Family Mode
-* @param Filter List File Name
-* @desc When using family mode, sets the name of the filter list (make sure it's saved in CSV format).
+* @param Block List File Name
+* @desc When using family mode, sets the name of the block list (make sure it's saved in CSV format).
 * @type text
 * @default blocklist
 * @param Replacement Text
@@ -116,7 +115,7 @@ var textTools = textTools || {};
 var parameters = PluginManager.parameters('TextTools');
 textTools.familyModeOption = String(parameters['Use Family Mode']);
 textTools.familyModeName = String(parameters['Family Mode Option Text']);
-textTools.blockListFile = String(parameters['Filter List File Name']);
+textTools.blockListFile = String(parameters['Block List File Name']);
 textTools.bleepText = String(parameters['Replacement Text']);
 textTools.familyModeActivated = false;
 ConfigManager.familyModeOption = false;
@@ -169,6 +168,12 @@ Game_Message.prototype.addText = function(text) {
     if (Imported.YEP_MessageCore == true && $gameSystem.wordWrap()) filteredDialogue = '<WordWrap>' + filteredDialogue;
     this.add(filteredDialogue);
 };
+
+// The following overrides are used to allow the block list to function. They are implemented in the same way as
+// Yanfly Message Core, with added code for compatibility with that plugin. Although I did consider changing a
+// few of the variables out of respect for both ethics reasons and Yanfly's licensing, further analysis shows
+// that the calls are mostly just standard MV/MZ code adapted to the requirements of the Yanfly implementation.
+// Therefore the code remains as-is so as not to break any functionality.
 
 Game_Interpreter.prototype.command101 = function() {
     if (!$gameMessage.isBusy()) {
