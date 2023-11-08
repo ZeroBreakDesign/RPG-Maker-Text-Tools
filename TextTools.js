@@ -169,52 +169,6 @@ Game_Message.prototype.addText = function(text) {
     this.add(filteredDialogue);
 };
 
-// The following overrides are used to allow the block list to function. They are implemented in the same way as
-// Yanfly Message Core, with added code for compatibility with that plugin. Although I did consider changing a
-// few of the variables out of respect for both ethics reasons and Yanfly's licensing, further analysis shows
-// that the calls are mostly just standard MV/MZ code adapted to the requirements of the Yanfly implementation.
-// Therefore the code remains as-is so as not to break any functionality.
-
-Game_Interpreter.prototype.command101 = function() {
-    if (!$gameMessage.isBusy()) {
-      $gameMessage.setFaceImage(this._params[0], this._params[1]);
-      $gameMessage.setBackground(this._params[2]);
-      $gameMessage.setPositionType(this._params[3]);
-      while (this.isContinueMessageString()) {
-        this._index++;
-        if (this._list[this._index].code === 401) {
-          $gameMessage.addText(this.currentCommand().parameters[0]);
-        }
-        if (Imported.YEP_MessageCore == true && $gameMessage._texts.length >= $gameSystem.messageRows()) break;
-      }
-      switch (this.nextEventCode()) {
-      case 102:
-        this._index++;
-        this.setupChoices(this.currentCommand().parameters);
-        break;
-      case 103:
-        this._index++;
-        this.setupNumInput(this.currentCommand().parameters);
-        break;
-      case 104:
-        this._index++;
-        this.setupItemChoice(this.currentCommand().parameters);
-        break;
-      }
-      this._index++;
-      this.setWaitMode('message');
-    }
-    return false;
-};
-
-Game_Interpreter.prototype.isContinueMessageString = function() {
-    if (this.nextEventCode() === 101 && $gameSystem.messageRows() > 4) {
-      return true;
-    } else {
-      return this.nextEventCode() === 401;
-    }
-};
-
 // Alternating Case
 
 var alternatingCase = function (string) {
