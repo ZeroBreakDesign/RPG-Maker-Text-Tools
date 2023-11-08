@@ -3,7 +3,7 @@ This plugin is designed to simplify the use of JavaScript text functions and ser
 
 ## Special Note Regarding the Plugin Functions
 
-The plugin uses an addText() function for the purpose of the family mode's functionality that is described in the documentation. This is for compatibility with Yanfly Message Core and therefore it has been assumed that the functionality will only work with that plugin. However, I have tested the plugin with and without this and have not reported any problems from my own personal experiences. That being said, you are free to use Yanfly Message Core alongside this plugin to ensure proper functionality if you're not entirely sure of yourself with this matter.
+The plugin uses an addText() function for the purpose of the family mode's functionality that is described in the documentation; this is for compatibility with Yanfly Message Core. Additionally, function overrides are also used to allow the block list to function, which are implemented in the same way as Yanfly Message Core (but with added code for compatibility with that plugin). Although I did consider changing a few of the variables out of respect for both ethics reasons and Yanfly's licensing, further analysis shows that the calls are mostly just standard MV/MZ code adapted to the requirements of the Yanfly implementation. Therefore the code remains as-is so as not to break any functionality. Should there ever be a licensing dispute in regard to this matter, an alternative method of providing this functionality will be investigated at the earliest possible opportunity.
 
 ## Script Calls
 
